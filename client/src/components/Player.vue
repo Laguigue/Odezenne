@@ -37,13 +37,17 @@
   };
 </script>
 
-<style>
+<style lang="scss">
   .c-player {
     position: fixed;
     bottom: 0;
     width: 100%;
     padding: 10px 20px;
     background-color: black;
+    color: white;
+  }
+
+  .c-player__action {
     color: white;
   }
 </style>

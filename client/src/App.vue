@@ -16,16 +16,8 @@
   };
 </script>
 
-<style>
-  body {
-    margin: 0;
-  }
-
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-  }
+<style lang="scss">
+  @import '~reset-css/_reset';
+  @import 'assets/scss/03_generic/button';
+  @import 'assets/scss/04_elements/body';
 </style>

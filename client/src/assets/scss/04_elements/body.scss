@@ -1,0 +1,7 @@
+@import '../01_settings/typography';
+
+body {
+  font-family: $primary-font-family, $secondary-font-family, sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}

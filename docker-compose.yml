@@ -57,6 +57,7 @@ services:
   o2n_client:
     container_name: o2n_client
     build: images/client
+    working_dir: /code
     command: npm run dev
     volumes:
       - ./client:/code
