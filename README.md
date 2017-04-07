@@ -12,16 +12,16 @@
 1. Clone the repository
     ```
     git clone https://github.com/ecvdbdx1617/Odezenne.git
-    ```  
-2. Build and launch the docker containers
+    ``` 
+2. Install the View.js and Lumen dependencies
+    ```
+    ./install.sh
+    ```
+3. Build and launch the docker containers
     ```
     docker-compose up
     ```     
-3. Install the View.js and Lumen dependencies
-    ```
-    ./scripts/install.sh
-    ```
-4. Point the container's IP adress to the right hosts by adding these three lines to the `/etc/hosts` file
+4. Point the container's IP address to the right hosts by adding these three lines to the `/etc/hosts` file
     ```
     127.0.0.1       lumen.o2n
     127.0.0.1       wordpress.o2n
@@ -60,7 +60,7 @@ docker exec -it o2n_client npm run lint
 ```
 
 ### Adding dependencies
-To add a dependencie to the Vue.js project, you have two options:
+To add a dependency to the Vue.js project, you have two options:
 * Add your dependency to the `package.json` file and execute this command
 ```
 docker exec -it o2n_client npm install

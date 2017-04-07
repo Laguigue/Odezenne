@@ -1,4 +1,4 @@
-FROM ebiven/vue-cli:latest
+FROM node:latest
 
 MAINTAINER Bram van Osta <bramvanosta@gmail.com>
 
