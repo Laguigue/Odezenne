@@ -19,22 +19,26 @@
     ./installDevelopment.sh
     ```
    _You will need to install [Cygwin](https://www.cygwin.com/) on windows to execute .sh scripts_
-3. Build and launch the docker containers:
+3. Install locally generated certificates to enable HTTPS for Wordpress
     ```bash
     cd ..
+   ./generateCertificates.sh
+   ```
+4. Build and launch the docker containers:
+    ```bash
     docker-compose up
     ```  
-4. Setup the Lumen database:  
+5. Setup the Lumen database:  
     ```bash
     ./scripts/setupLumenDb.sh
     ``` 
-5. Point the container's IP address to the right hosts by adding these three lines to the `/etc/hosts` file:
+6. Point the container's IP address to the right hosts by adding these three lines to the `/etc/hosts` file:
     ```bash
     127.0.0.1       lumen.o2n
     127.0.0.1       wordpress.o2n
     127.0.0.1       client.o2n
     ```
-6. You can now access the following urls:
+7. You can now access the following urls:
     * **lumen.o2n** for the Lumen API
     * **wordpress.o2n** for Wordpress
     * **client.o2n:8081** for the Vue.js client
