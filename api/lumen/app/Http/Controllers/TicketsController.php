@@ -112,9 +112,8 @@ class TicketsController extends Controller
         $oderId = $request->all()['orderId'];
 
         $formattedOrder = [
-            'status' => 'completed',
-            'transaction_id' => $request->all()['transactionId'],
-            'date_paid' => $request->all()['creationTime']
+            'set_paid' => true,
+            'transaction_id' => $request->all()['transactionId']
         ];
 
         $orderResponse = $woocommerce->put('orders/' . $oderId, $formattedOrder);
@@ -205,8 +204,7 @@ class TicketsController extends Controller
             $paymentResponse = [
                 'valid' => true,
                 'id' => $result->getId(),
-                'state' => $result->getState(),
-                'creation_time' => $result->getCreateTime()
+                'state' => $result->getState()
             ];
         } catch (Exception $e) {
             $paymentResponse = [

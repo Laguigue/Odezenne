@@ -9,8 +9,8 @@ services:
     volumes:
       - ./api/lumen:/var/www/html/lumen
     environment:
-      - "WOOCOMMERCE_CONSUMER_KEY=ck_97f315f037d4d88e3214dd90c0982304adfabeae"
-      - "WOOCOMMERCE_CONSUMER_SECRET=cs_da3df60a56e260266f0fb43ff5843573a2f4a03e"
+      - "WOOCOMMERCE_CONSUMER_KEY=ck_3f882288b4d50fe35759a14619c6f643c421822a"
+      - "WOOCOMMERCE_CONSUMER_SECRET=cs_045193a1d84bbbdd8dae7ab9328d49b3081f4d3c"
       - "PAYPAL_CLIENT_ID=AY4uJnG0aQ8UQ_7CGFg6RqWlJqQGEHDFp8MCsmh0WCao_hqZPC5nMGAXlXiMj9-eKIBR8wpLEL1JlhUu"
       - "PAYPAL_CLIENT_SECRET=ENzIaOv5S1L7yE41m2vWOiowiVgoaOuqEEkDBtoNJIyYewxJXShBzm4zDmiMqtercOLpInxJIg71djj3"
 

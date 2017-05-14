@@ -140,7 +140,7 @@
                 payerID: data.payerID,
               })
               .then((response) => {
-                axios.put(`${config.apiEndpoint}/tickets/checkout`, { orderId, transactionId: response.id, creationTime: response.creation_time })
+                axios.put(`${config.apiEndpoint}/tickets/checkout`, { orderId, transactionId: response.id })
                   .then((response2) => {
                     console.log(response2.data);
                     localStorage.clear();
