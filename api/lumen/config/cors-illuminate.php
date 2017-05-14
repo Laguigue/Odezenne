@@ -23,7 +23,7 @@ return [
     /**
      * If CORS handling should be logged. Debugging feature.
      */
-    S::KEY_LOGS_ENABLED  => false,
+    S::KEY_LOGS_ENABLED  => true,
 
     /**
      * Could be string or array. If specified as array (recommended for better performance) it should
@@ -47,7 +47,7 @@ return [
         'http://wordpress.o2n'                  => true,
         'http://admin.o2n.bramvanosta.com'      => true,
         // Enabling all origins might be insecure. Consider before using in production.
-        S::VALUE_ALLOW_ORIGIN_ALL  => null,
+        S::VALUE_ALLOW_ORIGIN_ALL  => false,
     ],
 
     /**
@@ -85,7 +85,7 @@ return [
      * You can read more on 'simple' headers at http://www.w3.org/TR/cors/#simple-header
      */
     S::KEY_ALLOWED_HEADERS => [
-        'content-type'             => null,
+        'content-type'             => true,
         'x-custom-request-header'  => null,
         // Enabling all headers might be insecure. Not recommended to use in production.
         S::VALUE_ALLOW_ALL_HEADERS => null,

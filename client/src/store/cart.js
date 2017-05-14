@@ -14,7 +14,7 @@ const mutations = {
   addToCart(state, { id, amount, city, place, date, price }) {
     const record = state.tickets.find(t => t.id === id);
     const currentDate = moment(new Date());
-    const expirationDate = currentDate.add(1, 'minutes');
+    const expirationDate = currentDate.add(1, 'days');
 
     if (!record) {
       state.tickets.push({

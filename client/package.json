@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
+    "build:dev": "node build/build.dev.js",
     "build:prod": "node build/build.prod.js",
     "build:staging": "node build/build.staging.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",

@@ -43,7 +43,7 @@ Class O2nApi
         $this->_curlOptions = array(
             CURLOPT_HEADER => false,
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_USERAGENT => '',
+            CURLOPT_USERAGENT => 'O2N Wordpress',
             CURLOPT_HTTPHEADER => $HTTPHEADER,
         );
     }

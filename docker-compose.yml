@@ -11,6 +11,8 @@ services:
     environment:
       - "WOOCOMMERCE_CONSUMER_KEY=ck_97f315f037d4d88e3214dd90c0982304adfabeae"
       - "WOOCOMMERCE_CONSUMER_SECRET=cs_da3df60a56e260266f0fb43ff5843573a2f4a03e"
+      - "PAYPAL_CLIENT_ID=AY4uJnG0aQ8UQ_7CGFg6RqWlJqQGEHDFp8MCsmh0WCao_hqZPC5nMGAXlXiMj9-eKIBR8wpLEL1JlhUu"
+      - "PAYPAL_CLIENT_SECRET=ENzIaOv5S1L7yE41m2vWOiowiVgoaOuqEEkDBtoNJIyYewxJXShBzm4zDmiMqtercOLpInxJIg71djj3"
 
   o2n_wordpress:
     restart: always

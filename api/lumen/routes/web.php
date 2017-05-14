@@ -30,6 +30,17 @@ $app->group(['prefix' => 'api/v1/'], function ($app) {
 
     $app->group(['prefix' => 'tickets/'], function ($app) {
         $app->get('/', 'TicketsController@index');
+
+        $app->group(['prefix' => 'checkout/'], function ($app) {
+            $app->post('/', 'TicketsController@createOrder');
+            $app->put('/', 'TicketsController@editOrder');
+
+            $app->group(['prefix' => 'payment/'], function ($app) {
+                $app->post('/create', 'TicketsController@createPayment');
+                $app->post('/execute', 'TicketsController@executePayment');
+            });
+        });
+
     });
 
 });

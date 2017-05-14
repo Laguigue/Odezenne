@@ -23,10 +23,10 @@
 
 <script>
   import { mapGetters } from 'vuex';
-  import moment from 'moment';
   import currency from 'currency.js';
 
   import store from '../../store';
+  import router from '../../router';
 
   import Counter from './Counter';
 
@@ -46,17 +46,6 @@
     mounted() {
       currency.settings.separator = ' ';
       currency.settings.decimal = ',';
-
-      const localCartProducts = JSON.parse(localStorage.getItem('cartTickets'));
-
-      const currentDate = moment(new Date());
-      const expirationDate = moment(localStorage.getItem('cartExpiration'));
-
-      if (currentDate.isBefore(expirationDate)) {
-        store.commit('initializeCart', localCartProducts);
-      } else {
-        localStorage.clear();
-      }
     },
     methods: {
       removeItem(id) {
@@ -74,7 +63,7 @@
         store.commit('addToCart', { id, amount: ticket.amount, city: ticket.city, place: ticket.place, date: ticket.date, price: ticket.price });
       },
       checkout() {
-
+        router.push({ name: 'Checkout' });
       },
     },
     components: {

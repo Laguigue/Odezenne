@@ -9,7 +9,8 @@
         "laravel/lumen-framework": "5.4.*",
         "vlucas/phpdotenv": "~2.2",
         "neomerx/cors-illuminate": "^2.0",
-        "automattic/woocommerce": "^1.2"
+        "automattic/woocommerce": "^1.2",
+        "paypal/rest-api-sdk-php": "^1.11"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
