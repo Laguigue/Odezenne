@@ -12,9 +12,9 @@
           <div class="c-ticket__buy" slot="content">
             <div class="c-ticket__amount">
               <label class="c-ticket__amount-label">Nombre de places</label>
-              <counter :number="amount" @onMinus="removeItem" @onPlus="addItem"></counter>
+              <counter :number="amount" :id="ticket.id" @onMinus="removeItem" @onPlus="addItem"></counter>
             </div>
-            <button class="c-ticket__cart">Ajouter au panier</button>
+            <button class="c-ticket__cart" @click="addToCart">Ajouter au panier</button>
           </div>
         </accordion>
       </div>
@@ -25,6 +25,8 @@
 <script>
   import moment from 'moment';
   import currency from 'currency.js';
+
+  import store from '../../store';
 
   import Accordion from './Accordion';
   import Counter from './Counter';
@@ -56,11 +58,14 @@
     methods: {
       removeItem() {
         if (this.amount > 0) {
-          this.amount = this.amount - 1;
+          this.amount -= 1;
         }
       },
       addItem() {
-        this.amount = this.amount + 1;
+        this.amount += 1;
+      },
+      addToCart() {
+        store.commit('addToCart', { id: this.ticket.id, amount: this.amount, city: this.city, place: this.place, date: this.formattedStartDate, price: this.ticket.price });
       },
     },
     components: {

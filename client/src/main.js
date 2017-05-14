@@ -5,6 +5,7 @@ import moment from 'moment';
 
 import App from './App';
 import router from './router';
+import store from './store';
 
 Vue.config.productionTip = false;
 
@@ -15,6 +16,7 @@ moment.locale('fr');
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App },
 });

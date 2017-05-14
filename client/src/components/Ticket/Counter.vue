@@ -9,13 +9,13 @@
 <script>
   export default {
     name: 'counter',
-    props: ['number'],
+    props: ['number', 'id'],
     methods: {
       minus() {
-        this.$emit('onMinus');
+        this.$emit('onMinus', this.id);
       },
       plus() {
-        this.$emit('onPlus');
+        this.$emit('onPlus', this.id);
       },
     },
   };
