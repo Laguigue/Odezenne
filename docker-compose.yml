@@ -2,9 +2,8 @@ version: '2'
 
 services:
   o2n_lumen:
-    restart: always
     container_name: o2n_lumen
-    build: images/lumen
+    build: api/lumen
     working_dir: /var/www/html/lumen
     volumes:
       - ./api/lumen:/var/www/html/lumen
@@ -15,9 +14,8 @@ services:
       - "PAYPAL_CLIENT_SECRET=ENzIaOv5S1L7yE41m2vWOiowiVgoaOuqEEkDBtoNJIyYewxJXShBzm4zDmiMqtercOLpInxJIg71djj3"
 
   o2n_wordpress:
-    restart: always
     container_name: o2n_wordpress
-    build: images/wordpress
+    build: api/wordpress
     working_dir: /var/www/html/wordpress
     volumes:
       - ./api/wordpress:/var/www/html/wordpress
@@ -29,7 +27,6 @@ services:
       - "WORDPRESS_DB_PASSWORD=password"
 
   o2n_nginx:
-    restart: always
     container_name: o2n_nginx
     build: images/nginx/development
     volumes_from:
@@ -44,7 +41,6 @@ services:
       - 443:443
 
   o2n_lumen_db:
-    restart: always
     container_name: o2n_lumen_db
     image: mariadb:latest
     environment:
@@ -54,7 +50,6 @@ services:
       - "MYSQL_ROOT_PASSWORD=password"
 
   o2n_wordpress_db:
-    restart: always
     container_name: o2n_wordpress_db
     image: mariadb:latest
     environment:
@@ -64,11 +59,10 @@ services:
       - "MYSQL_ROOT_PASSWORD=password"
 
   o2n_client:
-    restart: always
     container_name: o2n_client
-    build: images/client
+    build: client
     working_dir: /var/www/html/client
-    command: npm run dev
+    command: "sh -c 'yarn && npm run dev'"
     volumes:
       - ./client:/var/www/html/client
     ports:
