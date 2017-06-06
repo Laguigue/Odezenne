@@ -29,8 +29,8 @@ class O2nSoundcloudSettings
     {
         add_action('admin_menu', array($this, 'add_plugin_page'));
         add_action('admin_init', array($this, 'page_init'));
-        add_action( 'update_option_soundcloud_tracks', array($this, 'update_track_list'), 10, 2);
-        add_action( 'update_option_soundcloud_options', array($this, 'update_client_id'), 10, 2);
+        add_action('update_option_soundcloud_tracks', array($this, 'update_track_list'), 10, 2);
+        add_action('update_option_soundcloud_options', array($this, 'update_client_id'), 10, 2);
         $this->o2nApi = new O2nApi();
     }
 
@@ -66,6 +66,10 @@ class O2nSoundcloudSettings
      */
     public function create_admin_page()
     {
+
+        if (defined('WP_DEBUG_LOG'))
+            $GLOBALS['wp_log']['woocommerce soundcloud'][] = 'test 3';
+
         // Set class property
         $this->options = get_option('soundcloud_options');
         $this->tracks = get_option('soundcloud_tracks');
@@ -124,7 +128,7 @@ class O2nSoundcloudSettings
             'soundcloud-settings' // Page
         );
 
-        if (!empty(get_option( 'soundcloud_options' )['client_id'])) {
+        if (!empty(get_option('soundcloud_options')['client_id'])) {
             $soundcloud = new Soundcloud();
             // userId for Odezenne
             $tracks = $soundcloud->getAllTracks('2074352');
@@ -204,5 +208,5 @@ class O2nSoundcloudSettings
     }
 }
 
-if( is_admin() )
+if (is_admin())
     $my_settings_page = new O2nSoundcloudSettings();

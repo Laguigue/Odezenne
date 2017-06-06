@@ -31,32 +31,26 @@ class TicketsController extends Controller
     {
         $woocommerce = $this->_setupWoocommerce();
 
-        $tickets = $woocommerce->get('products', ['type' => 'ticket-event', 'status' => 'publish']);
-        $formattedTracks = array();
+        $tickets = $woocommerce->get('products', ['status' => 'publish']);
+        $formattedTickets = array();
 
         foreach ($tickets as $ticket) {
-            $attributes = array();
-            foreach ($ticket['attributes'] as $attribute) {
-                $attributes[] = [
-                    'label' => $attribute['name'],
-                    'value' => $attribute['options'][0]
+            if ($ticket['meta_data'][0]['value'] === 'Event') {
+                $formattedTickets[] = [
+                    'id' => $ticket['id'],
+                    'name' => $ticket['name'],
+                    'price' => $ticket['price'],
+                    'in_stock' => $ticket['in_stock'],
+                    'city' => $ticket['attributes'][0]['options'][0],
+                    'location' => $ticket['meta_data'][6]['value'],
+                    'date' => $ticket['meta_data'][1]['value'],
+                    'start_time' => $ticket['meta_data'][3]['value'] . ':' . $ticket['meta_data'][4]['value'],
+                    'end_time' => $ticket['meta_data'][11]['value'] . ':' . $ticket['meta_data'][12]['value']
                 ];
             }
-
-            $formattedTracks[] = [
-                'id' =>  $ticket['id'],
-                'name' => $ticket['name'],
-                'price' => $ticket['price'],
-                'in_stock' => $ticket['in_stock'],
-                'attributes' => $attributes,
-                'start_date' => $ticket['meta_data']['1']['value'],
-                'start_time' => $ticket['meta_data']['2']['value'],
-                'end_date' => $ticket['meta_data']['3']['value'],
-                'end_time' => $ticket['meta_data']['4']['value'],
-            ];
         }
 
-        return response()->json($formattedTracks);
+        return response()->json($formattedTickets);
     }
 
     /**
@@ -142,9 +136,9 @@ class TicketsController extends Controller
         foreach ($items as $item) {
             $formattedItem = new Item();
             $formattedItem->setName($item['name'])
-                          ->setCurrency($orderResponse['currency'])
-                          ->setQuantity($item['quantity'])
-                          ->setPrice($item['price']);
+                ->setCurrency($orderResponse['currency'])
+                ->setQuantity($item['quantity'])
+                ->setPrice($item['price']);
             $formattedItems->addItem($formattedItem);
         }
 
@@ -153,23 +147,23 @@ class TicketsController extends Controller
 
         $amount = new Amount();
         $amount->setCurrency($orderResponse['currency'])
-               ->setTotal($orderResponse['total']);
+            ->setTotal($orderResponse['total']);
 
         $transaction = new Transaction();
         $transaction->setAmount($amount)
-                    ->setItemList($formattedItems)
-                    ->setDescription("Achat billet")
-                    ->setInvoiceNumber($orderResponse['order_key']);
+            ->setItemList($formattedItems)
+            ->setDescription("Achat billet")
+            ->setInvoiceNumber($orderResponse['order_key']);
 
         $redirectUrls = new RedirectUrls();
         $redirectUrls->setReturnUrl("http://lumen.o2n/api/v1/tickets/checkout/payment/execute?success=true")
-                     ->setCancelUrl("http://lumen.o2n/api/v1/tickets/checkout/payment/execute?success=false");
+            ->setCancelUrl("http://lumen.o2n/api/v1/tickets/checkout/payment/execute?success=false");
 
         $payment = new Payment();
         $payment->setIntent("sale")
-                ->setPayer($payer)
-                ->setRedirectUrls($redirectUrls)
-                ->addTransaction($transaction);
+            ->setPayer($payer)
+            ->setRedirectUrls($redirectUrls)
+            ->addTransaction($transaction);
 
         try {
             $payment->create($paypalContext);
@@ -231,7 +225,8 @@ class TicketsController extends Controller
         );
     }
 
-    protected function _setupPaypal() {
+    protected function _setupPaypal()
+    {
         $apiContext = new ApiContext(
             new OAuthTokenCredential(
                 env('PAYPAL_CLIENT_ID'),

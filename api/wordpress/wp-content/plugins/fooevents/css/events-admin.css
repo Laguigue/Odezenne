@@ -1,0 +1,4 @@
+#woocommerce-coupon-data ul.wc-tabs li.custom_tab_fooevents a::before, #woocommerce-product-data ul.wc-tabs li.custom_tab_fooevents a::before, .woocommerce ul.wc-tabs li.custom_tab_fooevents a::before {
+    font-family: "dashicons";
+    content: "\f508";
+}

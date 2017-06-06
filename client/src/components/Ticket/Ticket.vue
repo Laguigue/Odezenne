@@ -2,9 +2,9 @@
   <div class="o-grid__cell o-grid__cell--4/12">
     <div class="c-ticket">
       <div class="c-ticket__info">
-        <span class="c-ticket__city">{{ city }}</span>
-        <span class="c-ticket__date">{{ formattedStartDate }}</span>
-        <span class="c-ticket__place">{{ place }}</span>
+        <span class="c-ticket__city">{{ ticket.city }}</span>
+        <span class="c-ticket__date">{{ formattedDate }}</span>
+        <span class="c-ticket__place">{{ ticket.location }}</span>
       </div>
       <div class="c-ticket__order">
         <accordion>
@@ -40,19 +40,13 @@
       };
     },
     computed: {
-      formattedStartDate() {
-        return moment(this.ticket.start_date).format('dddd Do MMMM');
+      formattedDate() {
+        return moment(this.ticket.date).format('dddd Do MMMM');
       },
       formattedPrice() {
         currency.settings.separator = ' ';
         currency.settings.decimal = ',';
         return currency(this.ticket.price).format();
-      },
-      city() {
-        return this.ticket.attributes.filter(attribute => attribute.label === 'Ville').map(attribute => attribute.value)[0];
-      },
-      place() {
-        return this.ticket.attributes.filter(attribute => attribute.label === 'Lieu').map(attribute => attribute.value)[0];
       },
     },
     methods: {
@@ -65,7 +59,7 @@
         this.amount += 1;
       },
       addToCart() {
-        store.commit('addToCart', { id: this.ticket.id, amount: this.amount, city: this.city, place: this.place, date: this.formattedStartDate, price: this.ticket.price });
+        store.commit('addToCart', { id: this.ticket.id, amount: this.amount, city: this.ticket.city, place: this.ticket.location, date: this.formattedDate, price: this.ticket.price });
       },
     },
     components: {

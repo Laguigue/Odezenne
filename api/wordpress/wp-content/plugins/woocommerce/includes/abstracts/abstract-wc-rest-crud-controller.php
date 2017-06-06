@@ -203,6 +203,10 @@ abstract class WC_REST_CRUD_Controller extends WC_REST_Posts_Controller {
 		 */
 		do_action( "woocommerce_rest_insert_{$this->post_type}_object", $object, $request, true );
 
+        if (true === WP_DEBUG) {
+            error_log("test {$this->post_type}");
+        }
+
 		$request->set_param( 'context', 'edit' );
 		$response = $this->prepare_object_for_response( $object, $request );
 		$response = rest_ensure_response( $response );
