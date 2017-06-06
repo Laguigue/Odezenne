@@ -8,6 +8,11 @@ services:
     working_dir: /var/www/html/lumen
     volumes:
       - ./api/lumen:/var/www/html/lumen
+    environment:
+      - WOOCOMMERCE_CONSUMER_KEY=
+      - WOOCOMMERCE_CONSUMER_SECRET=
+      - PAYPAL_CLIENT_ID=
+      - PAYPAL_CLIENT_SECRET=
 
   o2n_wordpress:
     restart: always
@@ -17,11 +22,11 @@ services:
     volumes:
       - ./api/wordpress:/var/www/html/wordpress
     environment:
-      - "ENV=staging"
-      - "WORDPRESS_DB_NAME=wordpress"
-      - "WORDPRESS_DB_USER=wordpress"
-      - "WORDPRESS_DB_HOST=o2n_wordpress_db:3306"
-      - "WORDPRESS_DB_PASSWORD=password"
+      - ENV=staging
+      - WORDPRESS_DB_NAME=wordpress
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_HOST=o2n_wordpress_db:3306
+      - WORDPRESS_DB_PASSWORD=password
 
   o2n_nginx:
     restart: always
@@ -32,26 +37,47 @@ services:
       - o2n_wordpress
     volumes:
       - ./logs:/var/www/logs
+      - ./config/certs:/etc/nginx/certs:ro
       - ./client/dist:/var/www/html/client
     ports:
       - 80:80
+      - 443:443
+
+  o2n_letsencrypt:
+    restart: always
+    container_name: o2n_letsencrypt
+    image: gordonchan/auto-letsencrypt
+    links:
+      - o2n_nginx
+    volumes:
+      - ./logs/letsencrypt:/var/log/letsencrypt
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config/certs:/etc/nginx/certs
+    volumes_from:
+      - o2n_nginx
+    environment:
+      - EMAIL=bramvanosta@gmail.com
+      - SERVER_CONTAINER=o2n_nginx
+      - WEBROOT_PATH=/var/www/html
+      - DOMAINS=api.o2n.bramvanosta.com admin.o2n.bramvanosta.com o2n.bramvanosta.com
+      - CHECK_FREQ=7
 
   o2n_lumen_db:
     restart: always
     container_name: o2n_lumen_db
     image: mariadb:latest
     environment:
-      - "MYSQL_DATABASE=homestead"
-      - "MYSQL_USER=homestead"
-      - "MYSQL_PASSWORD=secret"
-      - "MYSQL_ROOT_PASSWORD=password"
+      - MYSQL_DATABASE=homestead
+      - MYSQL_USER=homestead
+      - MYSQL_PASSWORD=secret
+      - MYSQL_ROOT_PASSWORD=password
 
   o2n_wordpress_db:
     restart: always
     container_name: o2n_wordpress_db
     image: mariadb:latest
     environment:
-      - "MYSQL_DATABASE=wordpress"
-      - "MYSQL_USER=wordpress"
-      - "MYSQL_PASSWORD=password"
-      - "MYSQL_ROOT_PASSWORD=password"
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=wordpress
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=password
