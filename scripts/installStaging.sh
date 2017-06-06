@@ -3,6 +3,10 @@
 # Going to the parent folder
 cd ./..
 
+# Install Front-end dependencies for Vue.js
+echo "### Installing Front-end depenencies for Vue.js ###"
+docker run --rm -v "$(pwd)"/client:/app -w /app node yarn
+
 # Build the staging environment
 echo "### Building the Staging environment for Vue.js ###"
 docker run --rm -v "$(pwd)"/client:/app -w /app node npm run build:staging
