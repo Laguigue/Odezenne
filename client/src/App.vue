@@ -1,16 +1,10 @@
 <template>
   <router-view></router-view>
-    <!--<player></player>-->
 </template>
 
 <script>
-  import Player from './components/Player/Player';
-
   export default {
     name: 'app',
-    components: {
-      Player,
-    },
   };
 </script>
 

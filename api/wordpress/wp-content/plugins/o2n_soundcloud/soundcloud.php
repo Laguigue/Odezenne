@@ -1,4 +1,5 @@
 <?php
+
 Class Soundcloud
 {
     /**
@@ -31,11 +32,10 @@ Class Soundcloud
      */
     function __construct()
     {
-        if (empty(get_option( 'soundcloud_options' )['client_id'])) {
+        if (empty(get_option('soundcloud_options')['client_id'])) {
             throw new Soundcloud_Missing_Client_Id_Exception();
         }
-        $this->_clientId = get_option( 'soundcloud_options' )['client_id'];
-        $this->_enableAllTracks = get_option( 'soundcloud_options' )['enable_all_tracks'];
+        $this->_clientId = get_option('soundcloud_options')['client_id'];
         $this->_setDefaultCurlOptions();
         $this->_apiEndpoint = 'https://api.soundcloud.com/';
     }
@@ -51,7 +51,7 @@ Class Soundcloud
 
     protected function _constructUrl($path)
     {
-        return $path.'?format=json&client_id='.$this->_clientId;
+        return $path . '?format=json&client_id=' . $this->_clientId;
     }
 
     protected function _request($path, $curlOptions = array())
@@ -69,9 +69,9 @@ Class Soundcloud
 
             curl_close($curl);
 
-            return substr($response, strpos($response, "\r\n\r\n")+4);
+            return substr($response, strpos($response, "\r\n\r\n") + 4);
 
-        } catch(Exception $error) {
+        } catch (Exception $error) {
             trigger_error(sprintf(
                 'Soundcloud request failed with error #%d: %s',
                 $error->getCode(), $error->getMessage()),
@@ -82,7 +82,7 @@ Class Soundcloud
 
     function getAllTracks($user_id)
     {
-        $baseUrl = $this->_apiEndpoint.'users/'.$user_id.'/tracks';
+        $baseUrl = $this->_apiEndpoint . 'users/' . $user_id . '/tracks';
         $formattedUrl = $this->_constructUrl($baseUrl);
 
         $data = $this->_request($formattedUrl);

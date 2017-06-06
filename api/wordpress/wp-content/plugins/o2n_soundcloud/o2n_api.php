@@ -1,4 +1,5 @@
 <?php
+
 Class O2nApi
 {
     /**
@@ -65,7 +66,7 @@ Class O2nApi
 
             return $response;
 
-        } catch(Exception $error) {
+        } catch (Exception $error) {
             trigger_error(sprintf(
                 'API request failed with error #%d: %s',
                 $error->getCode(), $error->getMessage()),
@@ -76,7 +77,7 @@ Class O2nApi
 
     function setTracksList($tracks)
     {
-        $formattedUrl = $this->_apiEndpoint.'tracks/all';
+        $formattedUrl = $this->_apiEndpoint . 'tracks/all';
         $formattedTracks = array();
 
         foreach ($tracks as $track => $status) {
@@ -99,7 +100,7 @@ Class O2nApi
 
     function setClientId($clientId)
     {
-        $formattedUrl = $this->_apiEndpoint.'settings/soundcloud-client-id';
+        $formattedUrl = $this->_apiEndpoint . 'settings/soundcloud-client-id';
 
         $formattedClientId = array(
             'label' => 'soundcloud-client-id',

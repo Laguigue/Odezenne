@@ -66,13 +66,10 @@ class O2nSoundcloudSettings
      */
     public function create_admin_page()
     {
-
-        if (defined('WP_DEBUG_LOG'))
-            $GLOBALS['wp_log']['woocommerce soundcloud'][] = 'test 3';
-
         // Set class property
         $this->options = get_option('soundcloud_options');
         $this->tracks = get_option('soundcloud_tracks');
+
         ?>
         <div class="wrap">
             <h1>Soundcloud Settings</h1>
@@ -160,8 +157,6 @@ class O2nSoundcloudSettings
         $new_input = array();
         if (isset($input['client_id']))
             $new_input['client_id'] = sanitize_text_field($input['client_id']);
-        if (isset($input['enable_all_tracks']))
-            $new_input['enable_all_tracks'] = $input['enable_all_tracks'];
         if (isset($input['305230910']))
             $new_input['305230910'] = $input['305230910'];
 
@@ -203,7 +198,7 @@ class O2nSoundcloudSettings
         printf(
             '<input type="checkbox" name="soundcloud_tracks[%s]" value="1" %s />',
             $track['id'],
-            checked(1 == $this->tracks[$track['id']], true, false)
+            checked(array_key_exists($track['id'], $this->tracks) && $this->tracks[$track['id']] == 1, true, false)
         );
     }
 }

@@ -2,9 +2,12 @@
   <main>
     <div class="c-scene" v-if="analyserLoaded">
       <grid-scene v-show="scene === 'grid'" :analyser="audioAnalyser" :is-animating="scene === 'grid'"></grid-scene>
-      <circle-scene v-show="scene === 'circle'" :analyser="audioAnalyser" :is-animating="scene === 'circle'"></circle-scene>
-      <half-circle-scene v-show="scene === 'halfCircle'" :analyser="audioAnalyser" :is-animating="scene === 'halfCircle'"></half-circle-scene>
+      <circle-scene v-show="scene === 'circle'" :analyser="audioAnalyser"
+                    :is-animating="scene === 'circle'"></circle-scene>
+      <half-circle-scene v-show="scene === 'halfCircle'" :analyser="audioAnalyser"
+                         :is-animating="scene === 'halfCircle'"></half-circle-scene>
     </div>
+    <player></player>
   </main>
 </template>
 
@@ -12,6 +15,7 @@
   import GridScene from '../scenes/GridScene.vue';
   import CircleScene from '../scenes/CircleScene.vue';
   import HalfCircleScene from '../scenes/HalfCircleScene.vue';
+  import Player from '../components/Player/Player';
 
   import EventBus from '../eventBus';
 
@@ -41,6 +45,7 @@
       GridScene,
       CircleScene,
       HalfCircleScene,
+      Player,
     },
     methods: {
       toggleScene() {
