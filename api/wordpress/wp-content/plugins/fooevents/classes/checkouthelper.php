@@ -13,12 +13,7 @@ class FooEvents_Checkout_Helper
 
         add_action('woocommerce_after_order_notes', array($this, 'attendee_checkout'));
         add_action('woocommerce_checkout_process', array($this, 'attendee_checkout_process'));
-//        add_action('woocommerce_checkout_update_order_meta', array( $this, 'woocommerce_events_process'));
         add_action('woocommerce_rest_insert_shop_order_object', array($this, 'woocommerce_events_process'));
-
-        if (true === WP_DEBUG) {
-            error_log('test 1');
-        }
 
     }
 
@@ -302,17 +297,11 @@ class FooEvents_Checkout_Helper
      */
     public function woocommerce_events_process($order)
     {
-        if (true === WP_DEBUG) {
-            error_log('test order id' . $order->get_id());
-        }
-
         $order_id = $order->get_id();
 
         set_time_limit(0);
 
-        global $woocommerce;
-
-        $events = $this->get_order_events($woocommerce);
+        $events = $this->get_order_events($order);
 
         /*echo "<pre>";
             print_r($events);
@@ -390,7 +379,26 @@ class FooEvents_Checkout_Helper
 
                     }
 
-                    $ticket['WooCommerceEventsTicketID'] = $this->create_ticket($customerDetails['customerID'], $ticket['product_id'], $order_id, $ticket['attribute_ticket-type'], $ticket['variations'], $ticket['variation_id'], $x);
+                    $args = array(
+                        'meta_query' => array(
+                            array(
+                                'key' => 'WooCommerceEventsOrderID',
+                                'value' => $order_id
+                            ),
+                            array(
+                                'key' => 'WooCommerceEventsProductID',
+                                'value' => $ticket['product_id']
+                            )
+                        ),
+                        'post_type' => 'event_magic_tickets',
+                        'posts_per_page' => -1
+                    );
+                    $posts = get_posts($args);
+
+                    if (sizeof($posts) === 0) {
+                        $ticket['WooCommerceEventsTicketID'] = $this->create_ticket($customerDetails['customerID'], $ticket['product_id'], $order_id, $ticket['attribute_ticket-type'], $ticket['variations'], $ticket['variation_id'], $x);
+                    }
+
 
                 }
 
@@ -439,9 +447,9 @@ class FooEvents_Checkout_Helper
 
     }
 
-    private function get_order_events($woocommerce)
+    private function get_order_events($order)
     {
-        $products = $woocommerce->cart->get_cart();
+        $products = $order->get_data()['line_items'];
 
         $events = array();
         foreach ($products as $cart_item_key => $product) {
@@ -528,9 +536,9 @@ class FooEvents_Checkout_Helper
         update_post_meta($postID, 'WooCommerceEventsAttendeeDesignation', $attendeeDesignation);
         update_post_meta($postID, 'WooCommerceEventsVariations', $variations);
         update_post_meta($postID, 'WooCommerceEventsVariationID', $variationID);
-        update_post_meta($postID, 'WooCommerceEventsPurchaserFirstName', $order->billing_first_name);
-        update_post_meta($postID, 'WooCommerceEventsPurchaserLastName', $order->billing_last_name);
-        update_post_meta($postID, 'WooCommerceEventsPurchaserEmail', $order->billing_email);
+        update_post_meta($postID, 'WooCommerceEventsPurchaserFirstName', $order->get_billing_first_name());
+        update_post_meta($postID, 'WooCommerceEventsPurchaserLastName', $order->get_billing_last_name());
+        update_post_meta($postID, 'WooCommerceEventsPurchaserEmail', $order->get_billing_email());
 
         $product = get_post($product_id);
 
