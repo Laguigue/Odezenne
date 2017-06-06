@@ -4,7 +4,7 @@ services:
   o2n_lumen:
     restart: always
     container_name: o2n_lumen
-    build: images/lumen
+    build: api/lumen
     working_dir: /var/www/html/lumen
     volumes:
       - ./api/lumen:/var/www/html/lumen
@@ -17,7 +17,7 @@ services:
   o2n_wordpress:
     restart: always
     container_name: o2n_wordpress
-    build: images/wordpress
+    build: api/wordpress
     working_dir: /var/www/html/wordpress
     volumes:
       - ./api/wordpress:/var/www/html/wordpress
