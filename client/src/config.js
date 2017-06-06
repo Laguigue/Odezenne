@@ -8,8 +8,8 @@ if (process.env.NODE_ENV === 'development') {
   };
 } else if (process.env.NODE_ENV === 'staging') {
   config = {
-    apiEndpoint: 'http://api.o2n.bramvanosta.com/api/v1',
-    cmsEndpoint: 'http://admin.o2n.bramvanosta.com/wp-json/wp/v2',
+    apiEndpoint: 'https://api.o2n.bramvanosta.com/api/v1',
+    cmsEndpoint: 'https://admin.o2n.bramvanosta.com/wp-json/wp/v2',
   };
 } else {
   config = {
