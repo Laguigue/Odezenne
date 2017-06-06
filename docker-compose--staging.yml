@@ -59,6 +59,7 @@ services:
       - EMAIL=bramvanosta@gmail.com
       - SERVER_CONTAINER=o2n_nginx
       - WEBROOT_PATH=/var/www/html
+      - CERTS_PATH=/etc/nginx/certs
       - DOMAINS=api.o2n.bramvanosta.com admin.o2n.bramvanosta.com o2n.bramvanosta.com
       - CHECK_FREQ=7
 
