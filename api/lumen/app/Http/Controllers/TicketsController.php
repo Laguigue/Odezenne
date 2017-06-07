@@ -107,6 +107,7 @@ class TicketsController extends Controller
 
         $formattedOrder = [
             'set_paid' => true,
+            'status' => 'completed',
             'transaction_id' => $request->all()['transactionId']
         ];
 
