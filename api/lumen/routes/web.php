@@ -41,6 +41,7 @@ $app->group(['prefix' => 'api/v1/'], function ($app) {
 
     $app->group(['prefix' => 'guests/'], function ($app) {
         $app->post('/', 'GuestController@createGuest');
+        $app->get('/','GuestController@getGuests');
         $app->post('/verify', 'GuestController@verifyGuest');
     });
 

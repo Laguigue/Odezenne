@@ -14,5 +14,6 @@ class Guest extends Model
      */
     protected $fillable = [
         'email',
+        'post_code'
     ];
 }

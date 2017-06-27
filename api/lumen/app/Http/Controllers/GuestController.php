@@ -9,7 +9,10 @@ class GuestController extends Controller
 {
     public function createGuest(Request $request)
     {
-        $guest = Guest::firstOrCreate(['email' => $request->all()['email']]);
+        $guest = Guest::updateOrCreate(
+            ['email' => $request->all()['email']],
+            ['post_code' => $request->all()['postCode']]
+        );
         $guest->touch();
     }
 
@@ -22,5 +25,11 @@ class GuestController extends Controller
         }
 
         return response()->json(array('validLogin' => $guest_exists));
+    }
+
+    public function getGuests() {
+        $guests = Guest::all();
+
+        return response()->json($guests);
     }
 }

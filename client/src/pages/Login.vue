@@ -4,7 +4,11 @@
     <div>Entrez votre adresse mail <br> et plongez dans l'univers d'Odezenne.</div>
     <form class="login-form">
       <div class="email-input">
-        <input type="email" v-model="email" required />
+        <input type="email" v-model="email" placeholder="Entrez votre adresse mail" required />
+        <img src="../assets/images/trait_2.svg">
+      </div>
+      <div class="postcode-input">
+        <input type="text" v-model="postCode" placeholder="Entrez votre code postal" required maxlength="5"/>
         <img src="../assets/images/trait_2.svg">
       </div>
       <div class="drawbox" @click.prevent="onLogin">
@@ -12,7 +16,8 @@
           <input type="submit" value="VALIDER" />
         </div>
       </div>
-      <div class="error-message" :class="{active: errorLog != ''}" ref="errorMsg">{{errorLog}}</div>
+      <div class="error-mail" :class="{active: errorMailLog != ''}">{{errorMailLog}}</div>
+      <div class="error-postcode" :class="{active: errorPostcodeLog != ''}">{{errorPostcodeLog}}</div>
     </form>
   </main>
 </template>
@@ -25,20 +30,39 @@
     data() {
       return {
         email: '',
-        errorLog: '',
+        errorMailLog: '',
+        errorPostcodeLog: '',
+        postCode: '',
       };
     },
     methods: {
       ...mapActions({
         login: 'login',
       }),
+      postCodeTest(code) {
+        if (code.length !== 5 || isNaN(code) || code.length === 0) {
+          return false;
+        }
+        return true;
+      },
       onLogin() {
         /* eslint-disable no-useless-escape*/
-        const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-        if (re.test(this.email)) {
-          this.login(this.email);
+        const reMail = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+        if (reMail.test(this.email) && this.postCodeTest(this.postCode)) {
+          this.login({ email: this.email, postCode: this.postCode });
+          this.errorMailLog = 'Chargement ...';
+          this.errorPostcodeLog = '';
         } else {
-          this.errorLog = 'Veuillez entrer un e-mail valide';
+          if (!reMail.test(this.email)) {
+            this.errorMailLog = 'Veuillez entrer un e-mail valide';
+          } else {
+            this.errorMailLog = '';
+          }
+          if (this.postCodeTest(this.postCode)) {
+            this.errorPostcodeLog = '';
+          } else {
+            this.errorPostcodeLog = 'Veuillez entrer un code postal valide';
+          }
         }
       },
     },
@@ -72,14 +96,20 @@
     margin: 0 auto;
     align-items: center;
   }
-  .email-input {
+  .email-input, .postcode-input {
     position: relative;
+    width: 80%;
   }
-  .email-input img {
+  .postcode-input {
+    margin-top: 18px;
+  }
+  .email-input img, .postcode-input img {
     position: absolute;
     bottom:0;
     left:0;
-    width:100%;
+    width:80%;
+    right: 0;
+    margin: auto;
   }
   .drawbox {
     position:relative;
@@ -116,7 +146,7 @@
     width:100%;
     position:absolute;
   }
-  input[type=email] {
+  input[type=email], input[type=text] {
     width: 100%;
     height: 50px;
     background-color: transparent;
@@ -128,7 +158,7 @@
     position: relative;
     text-align: center;
   }
-  .error-message {
+  .error-mail, .error-postcode {
     transition: all 0.5s ease;
     /*background-color: #E040FB;*/
     background-color: black;
@@ -139,7 +169,7 @@
     transform: translateY(50px);
     color: #fff;
   }
-  .error-message.active {
+  .error-mail.active, .error-postcode.active {
     transform: translateY(0px);
     opacity: 1;
   }
@@ -147,8 +177,8 @@
     .login-form {
       width: 50%;
     }
-    .email-input {
-      width: 50%;
+    .email-input, .postcode-input {
+      width: 60%;
     }
   }
 </style>
