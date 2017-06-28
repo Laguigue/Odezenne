@@ -1,5 +1,6 @@
 <template>
   <main>
+    <o-header></o-header>
     <div class="o-container">
       <div class="o-grid o-grid--guttered">
         <ticket v-for="ticket in tickets"
@@ -19,6 +20,7 @@
 
   import Ticket from '../components/Ticket/Ticket';
   import Cart from '../components/Ticket/Cart';
+  import OHeader from '../components/Header';
 
   export default {
     name: 'ticketing',
@@ -60,6 +62,7 @@
     components: {
       Ticket,
       Cart,
+      OHeader,
     },
   };
 </script>

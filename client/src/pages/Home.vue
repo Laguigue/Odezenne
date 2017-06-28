@@ -1,5 +1,6 @@
 <template>
   <main>
+    <o-header></o-header>
     <div class="o-container">
         <grid></grid>
     </div>
@@ -8,6 +9,7 @@
 
 <script>
   import Grid from '../components/Home/Grid';
+  import OHeader from '../components/Header';
 
   export default {
     name: 'home',
@@ -17,6 +19,7 @@
     },
     components: {
       Grid,
+      OHeader,
     },
   };
 </script>
