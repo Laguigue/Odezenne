@@ -17,14 +17,14 @@
             <a href="#" class="router-link">Historique</a>
             <router-link class="router-link" :to="{ name: 'Blog' }" @click.native="burgerAction">Blog</router-link>
             <div class="RS">
-                <a href="#"><img src="../assets/images/twitter.png"></a>
-                <a href="#"><img src="../assets/images/facebook-logo.png"></a>
-                <a href="#"><img src="../assets/images/instagram.png"></a>
-                <a href="#"><img src="../assets/images/youtube.png"></a>
-                <a href="#"><img src="../assets/images/soundcloud.png"></a>
+                <a href="https://twitter.com/odezenne" target="_blank"><img src="../assets/images/twitter.png"></a>
+                <a href="https://www.facebook.com/odezenne/" target="_blank"><img src="../assets/images/facebook-logo.png"></a>
+                <a href="https://www.instagram.com/odezenne_/?hl=fr" target="_blank"><img src="../assets/images/instagram.png"></a>
+                <a href="https://www.youtube.com/user/alo2zen" target="_blank"><img src="../assets/images/youtube.png"></a>
+                <a href="https://soundcloud.com/odezenne" target="_blank"><img src="../assets/images/soundcloud.png"></a>
             </div>
         </nav>
-        <div :class="{active: opened, overlay: true}"></div>
+        <div v-if="opened" :class="{active: opened, overlay: true}"></div>
     </div>
 </template>
 
