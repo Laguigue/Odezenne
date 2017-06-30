@@ -13,7 +13,7 @@
         <nav :class="{active: opened}">
             <router-link class="router-link" :to="{ name: 'Home' }" exact @click.native="burgerAction">Giga Timeline</router-link>
             <a href="#" class="router-link">Shop</a>
-            <router-link class="router-link" :to="{ name: 'Billetterie' }" @click.native="burgerAction">Billeterie</router-link>
+            <router-link class="router-link" :to="{ name: 'Billetterie' }" @click.native="burgerAction">Billetterie</router-link>
             <a href="#" class="router-link">Historique</a>
             <router-link class="router-link" :to="{ name: 'Blog' }" @click.native="burgerAction">Blog</router-link>
             <div class="RS">

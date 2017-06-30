@@ -3,7 +3,7 @@
     <div class="o-container">
       <div class="o-grid o-grid--guttered">
         <loader v-if="!isLoaded"></loader>
-        <search></search>
+        <search v-if="isLoaded"></search>
         <ticket v-for="regionalTicket in regionalTickets"
                 :ticket="regionalTicket"
                 :key="regionalTicket.id"
